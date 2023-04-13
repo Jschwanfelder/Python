@@ -1,0 +1,81 @@
+import random
+
+while True:
+    pencil_number = input("How many pencils would you like to use:")
+    try:
+        if int(pencil_number) > 0:
+            break
+        if int(pencil_number) == 0:
+            print("The number of pencils should be positive")
+            continue
+        if int(pencil_number) < 0:
+            print("The number of pencils should be positive")
+            continue
+    except ValueError:
+        print("The number of pencils should be numeric")
+        continue
+
+pencil_number = int(pencil_number)
+first_player = "John"
+second_player = "Jack"
+while True:
+    turns = input(f"Who will be first ({first_player}, {second_player})")
+    if turns == "John":
+        break
+    if turns == "Jack":
+        break
+    if turns != "Jack" or turns != "John":
+        print("Choose between Jack or John")
+        continue
+
+if turns == first_player:
+    index = 0
+else:
+    index = 1
+players = [first_player, second_player]
+
+while int(pencil_number) > 0:
+    print(f"{players[index]}'s turn")
+    print('|' * int(pencil_number))
+    if index == 1:
+        if pencil_number == 1:
+            remove = 1
+            print(remove)
+            pencil_number = pencil_number - remove
+            # print('John wins!')
+            # robot takes one and does not win
+        elif (pencil_number - 1) % 4 == 0:
+            remove = random.randint(1,3)
+            print(remove)
+            pencil_number = pencil_number - remove
+            # take a random int
+        elif pencil_number % 4 == 0:
+            remove = 3
+            print(remove)
+            pencil_number = pencil_number - remove
+            #robot takes three pencils
+        elif (pencil_number + 1) % 4 == 0:
+            remove = 2
+            print(remove)
+            pencil_number = pencil_number - remove
+            #robot takes two pencils
+        elif (pencil_number + 2) % 4 == 0:
+            remove= 1
+            print(remove)
+            pencil_number = pencil_number - remove
+            #robot takes one pencil
+    else:
+        try:
+            remove = int(input())
+        except ValueError:
+            print("Possible values: '1', '2', '3'")
+            continue
+        if remove < 1 or remove > 3:
+            print("Possible values: '1', '2' or '3'")
+            continue
+        if remove > int(pencil_number):
+            print("Too many pencils were taken")
+            continue
+        pencil_number = int(pencil_number) - remove
+    index = (index + 1) % 2
+print(f"{players[index]} won!")
